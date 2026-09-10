@@ -1,0 +1,2 @@
+timestamp,frame_idx,visual_score,visual_risk,sensor_score,sensor_risk,dominant_sensor,sensor_data_source,final_risk_score,risk_status,consensus_state,buzzer_state,motor_relay_state,beacon_color,hardware_command,temperature_c,vibration_rms_mms,speed_slip_pct,tension_kn
+2026-09-10T14:07:58.029883,1,0.68856,WARNING,0.86982,CRITICAL,vibration_rms_mms,SIMULATED — not a real measurement,0.86982,CRITICAL,SENSOR_DOMINANT_MECHANICAL_DISTRESS,ON (CONTINUOUS 95dB),OPEN (MOTOR TRIPPED / EMERGENCY STOP),FLASHING_RED,CMD_EMERGENCY_HALT_BUZZER_ON,48.0,8.45,3.2,19.5

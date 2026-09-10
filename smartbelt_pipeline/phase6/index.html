@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartBelt™ — Industrial SCADA Dashboard</title>
+  <style>
+    :root {
+      --bg-dark: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --normal-color: #22c55e;
+      --warning-color: #eab308;
+      --critical-color: #ef4444;
+      --accent-blue: #38bdf8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace; }
+    body { background-color: var(--bg-dark); color: var(--text-main); padding: 16px; min-height: 100vh; }
+    
+    header { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; margin-bottom: 16px; }
+    .logo-area h1 { font-size: 20px; font-weight: 700; color: #fff; letter-spacing: 0.5px; }
+    .logo-area span { font-size: 12px; color: var(--accent-blue); text-transform: uppercase; font-weight: 600; }
+    .header-status { display: flex; align-items: center; gap: 16px; }
+    .badge { padding: 6px 14px; border-radius: 4px; font-weight: 700; font-size: 13px; letter-spacing: 1px; }
+    .badge-normal { background: rgba(34, 197, 94, 0.2); color: var(--normal-color); border: 1px solid var(--normal-color); }
+    .badge-warning { background: rgba(234, 179, 8, 0.2); color: var(--warning-color); border: 1px solid var(--warning-color); }
+    .badge-critical { background: rgba(239, 68, 68, 0.2); color: var(--critical-color); border: 1px solid var(--critical-color); animation: pulse 1s infinite; }
+    
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+
+    .grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16px; margin-bottom: 16px; }
+    .card { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 16px; }
+    .card-title { font-size: 14px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; margin-bottom: 12px; border-bottom: 1px solid var(--card-border); padding-bottom: 6px; display: flex; justify-content: space-between; }
+
+    /* Camera Viewport */
+    .viewport { position: relative; width: 100%; height: 260px; background: #000; border-radius: 6px; overflow: hidden; display: flex; justify-content: center; align-items: center; border: 2px solid var(--normal-color); }
+    .camera-feed { width: 100%; height: 100%; object-fit: cover; background: #111; display: flex; justify-content: center; align-items: center; }
+    .hud-overlay { position: absolute; top: 10px; left: 10px; font-size: 11px; background: rgba(0,0,0,0.7); padding: 4px 8px; border-radius: 4px; border-left: 3px solid var(--accent-blue); }
+    .hud-alert-banner { position: absolute; bottom: 10px; width: calc(100% - 20px); text-align: center; padding: 6px; font-size: 12px; font-weight: 700; border-radius: 4px; display: none; }
+
+    /* Telemetry metrics */
+    .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .metric-val { font-size: 16px; font-weight: 700; font-family: monospace; }
+    .meter-bar { width: 100%; height: 12px; background: #0f172a; border-radius: 6px; overflow: hidden; margin: 8px 0; border: 1px solid var(--card-border); position: relative; }
+    .meter-fill { height: 100%; width: 45%; background: var(--normal-color); transition: width 0.4s ease, background-color 0.4s ease; }
+    .threshold-marker { position: absolute; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.4); }
+
+    .sensor-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+    .sensor-box { background: #0f172a; border: 1px solid var(--card-border); border-radius: 6px; padding: 10px; text-align: center; }
+    .sensor-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 4px; }
+    .sensor-number { font-size: 20px; font-weight: 700; font-family: monospace; }
+
+    /* Controls Bar */
+    .controls-bar { background: var(--card-bg); border: 1px solid var(--card-border); border-radius: 8px; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .btn { background: #334155; color: #fff; border: 1px solid #475569; padding: 8px 14px; border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.2s; }
+    .btn:hover { background: #475569; border-color: #64748b; }
+    .btn-danger { background: #991b1b; border-color: #ef4444; }
+    .btn-danger:hover { background: #b91c1c; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-area">
+      <h1>SmartBelt™ Industrial Telemetry Console</h1>
+      <span>Joint Rupture & Continuous Belt Integrity Monitoring</span>
+    </div>
+    <div class="header-status">
+      <div id="plantTime" style="font-size: 13px; color: var(--text-muted);">2026-09-10 12:00:00</div>
+      <div id="mainBadge" class="badge badge-normal">SYSTEM NOMINAL</div>
+    </div>
+  </header>
+
+  <div class="grid">
+    <!-- LEFT: Visual Inspection -->
+    <div class="card">
+      <div class="card-title">
+        <span>Optical Camera Subsystem (PatchCore WideResNet-50)</span>
+        <span style="color: var(--accent-blue); font-size: 11px;">CAM_OVERHEAD_01</span>
+      </div>
+      
+      <div id="viewport" class="viewport">
+        <div class="camera-feed" id="cameraFeed">
+          <svg width="180" height="120" viewBox="0 0 180 120">
+            <rect x="20" y="30" width="140" height="60" fill="#1e293b" stroke="#64748b" stroke-width="2"/>
+            <line x1="90" y1="30" x2="90" y2="90" stroke="#38bdf8" stroke-dasharray="4,4" stroke-width="3"/>
+            <text x="90" y="24" fill="#94a3b8" font-size="10" text-anchor="middle">CONVEYOR SPLICE JOINT</text>
+            <circle cx="90" cy="60" r="16" fill="none" id="defectCircle" stroke="var(--normal-color)" stroke-width="2"/>
+          </svg>
+        </div>
+        <div class="hud-overlay">
+          <div>FEED: LIVE 30 FPS</div>
+          <div id="hudFrame">FRAME: #00450</div>
+          <div id="hudScore">SCORE: 0.4680</div>
+        </div>
+        <div id="hudBanner" class="hud-alert-banner">CRITICAL JOINT RUPTURE DETECTED - MOTOR HALTED</div>
+      </div>
+
+      <div class="metric-row" style="margin-top: 12px;">
+        <span style="color: var(--text-muted);">Joint Splice Status:</span>
+        <span id="jointStatus" class="metric-val" style="color: var(--normal-color);">NORMAL (Splice Verified)</span>
+      </div>
+      <div class="metric-row">
+        <span style="color: var(--text-muted);">Continuous Belt Surface:</span>
+        <span id="beltStatus" class="metric-val" style="color: var(--normal-color);">NORMAL (Clean Surface)</span>
+      </div>
+      <div class="metric-row">
+        <span style="color: var(--text-muted);">Visual Anomaly Distance:</span>
+        <span id="visualScoreText" class="metric-val">0.4680</span>
+      </div>
+    </div>
+
+    <!-- RIGHT: Multi-Modal Risk & Sensors -->
+    <div class="card">
+      <div class="card-title">
+        <span>Multi-Modal Risk Engine</span>
+        <span style="color: var(--text-muted); font-size: 11px;">ISO-10816 Standard</span>
+      </div>
+
+      <div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px;">
+          <span>Fused Safety Metric</span>
+          <span id="fusedScoreText" style="font-weight: 700;">0.4320</span>
+        </div>
+        <div class="meter-bar">
+          <div id="meterFill" class="meter-fill"></div>
+          <div class="threshold-marker" style="left: 62.7%;"></div>
+          <div class="threshold-marker" style="left: 68.9%;"></div>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 10px; color: var(--text-muted);">
+          <span>0.0 (Optimal)</span>
+          <span style="margin-left: 20%;">Warn (0.627)</span>
+          <span>Crit (0.689)</span>
+          <span>1.0 (Rupture)</span>
+        </div>
+      </div>
+
+      <!-- Sensor Grid -->
+      <div class="sensor-grid">
+        <div class="sensor-box">
+          <div class="sensor-label">Vibration (ISO RMS)</div>
+          <div id="valVib" class="sensor-number" style="color: var(--normal-color);">1.42 mm/s</div>
+        </div>
+        <div class="sensor-box">
+          <div class="sensor-label">Splice Temperature</div>
+          <div id="valTemp" class="sensor-number" style="color: var(--normal-color);">36.5 °C</div>
+        </div>
+        <div class="sensor-box">
+          <div class="sensor-label">Belt Tension</div>
+          <div id="valTens" class="sensor-number" style="color: #fff;">22.4 kN</div>
+        </div>
+        <div class="sensor-box">
+          <div class="sensor-label">Pulley Slip</div>
+          <div id="valSlip" class="sensor-number" style="color: #fff;">1.8 %</div>
+        </div>
+      </div>
+
+      <!-- Actuator Relays -->
+      <div style="margin-top: 16px; background: #0f172a; border-radius: 6px; padding: 12px; border: 1px solid var(--card-border);">
+        <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">Safety Actuator & Interlock Status</div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0;">
+          <span>Audible Buzzer (95dB):</span>
+          <span id="actBuzzer" style="font-weight: 700; color: var(--normal-color);">OFF</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0;">
+          <span>Motor Trip Relay:</span>
+          <span id="actRelay" style="font-weight: 700; color: var(--normal-color);">CLOSED (ACTIVE RUN)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interactive Scenario Controller -->
+  <div class="controls-bar">
+    <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Live Demo Trigger:</span>
+    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <button class="btn" onclick="setScenario('nominal')">Nominal Run</button>
+      <button class="btn" onclick="setScenario('fatigue')">Early Splice Fatigue</button>
+      <button class="btn" onclick="setScenario('bearing')">Bearing Overheat</button>
+      <button class="btn btn-danger" onclick="setScenario('rupture')">Trigger Joint Rupture</button>
+      <button class="btn btn-danger" onclick="setScenario('severance')">Trigger Belt Severance</button>
+    </div>
+  </div>
+
+  <script>
+    let frame = 420;
+    const scenarios = {
+      nominal: {
+        badge: "SYSTEM NOMINAL", badgeClass: "badge-normal",
+        joint: "NORMAL (Splice Verified)", belt: "NORMAL (Surface Clean)",
+        vis: 0.468, fused: 0.432, vib: "1.42 mm/s", temp: "36.5 °C", tens: "22.4 kN", slip: "1.8 %",
+        buzzer: "OFF", relay: "CLOSED (ACTIVE RUN)", color: "var(--normal-color)", alert: false
+      },
+      fatigue: {
+        badge: "PREVENTIVE WARNING", badgeClass: "badge-warning",
+        joint: "WARNING (Incipient Cord Fatigue)", belt: "NORMAL (Surface Clean)",
+        vis: 0.655, fused: 0.655, vib: "2.10 mm/s", temp: "42.0 °C", tens: "21.8 kN", slip: "2.5 %",
+        buzzer: "PULSE_CHIRP (1 Hz)", relay: "CLOSED (MAINTAIN RUN)", color: "var(--warning-color)", alert: "WARNING: SPLICE ANOMALY ELEVATED - INSPECT"
+      },
+      bearing: {
+        badge: "MECHANICAL ALERT", badgeClass: "badge-warning",
+        joint: "NORMAL (Splice Verified)", belt: "WARNING (Idler Friction Heat)",
+        vis: 0.475, fused: 0.856, vib: "2.80 mm/s", temp: "78.5 °C", tens: "21.0 kN", slip: "4.5 %",
+        buzzer: "PULSE_CHIRP (1 Hz)", relay: "CLOSED (MAINTAIN RUN)", color: "var(--warning-color)", alert: "THERMAL ALERT: BEARING FRICTION OVERHEAT"
+      },
+      rupture: {
+        badge: "CRITICAL JOINT RUPTURE", badgeClass: "badge-critical",
+        joint: "CRITICAL (JOINT RUPTURE DETECTED)", belt: "NORMAL",
+        vis: 0.748, fused: 0.923, vib: "8.45 mm/s", temp: "48.0 °C", tens: "19.5 kN", slip: "3.2 %",
+        buzzer: "ON (CONTINUOUS 95dB)", relay: "OPEN (MOTOR TRIPPED)", color: "var(--critical-color)", alert: "CRITICAL: JOINT RUPTURE DETECTED - MOTOR HALT"
+      },
+      severance: {
+        badge: "EMERGENCY SEVERANCE", badgeClass: "badge-critical",
+        joint: "CRITICAL (BELT SEVERED)", belt: "CRITICAL (TOTAL TENSION LOSS)",
+        vis: 0.820, fused: 1.000, vib: "11.2 mm/s", temp: "52.0 °C", tens: "4.2 kN", slip: "100 %",
+        buzzer: "ON (CONTINUOUS 95dB)", relay: "OPEN (MOTOR TRIPPED)", color: "var(--critical-color)", alert: "FAIL-SAFE SHUTDOWN: TOTAL BELT SNAP"
+      }
+    };
+
+    function setScenario(scKey) {
+      const d = scenarios[scKey];
+      const mb = document.getElementById("mainBadge");
+      mb.className = "badge " + d.badgeClass;
+      mb.innerText = d.badge;
+
+      document.getElementById("jointStatus").innerText = d.joint;
+      document.getElementById("jointStatus").style.color = d.color;
+      document.getElementById("beltStatus").innerText = d.belt;
+      document.getElementById("visualScoreText").innerText = d.vis.toFixed(4);
+
+      document.getElementById("fusedScoreText").innerText = d.fused.toFixed(4);
+      const mf = document.getElementById("meterFill");
+      mf.style.width = (d.fused * 100) + "%";
+      mf.style.backgroundColor = d.color;
+
+      document.getElementById("valVib").innerText = d.vib;
+      document.getElementById("valVib").style.color = d.color;
+      document.getElementById("valTemp").innerText = d.temp;
+      document.getElementById("valTens").innerText = d.tens;
+      document.getElementById("valSlip").innerText = d.slip;
+
+      document.getElementById("actBuzzer").innerText = d.buzzer;
+      document.getElementById("actBuzzer").style.color = d.color;
+      document.getElementById("actRelay").innerText = d.relay;
+      document.getElementById("actRelay").style.color = d.color;
+
+      const vp = document.getElementById("viewport");
+      vp.style.borderColor = d.color;
+      const hb = document.getElementById("hudBanner");
+      const dc = document.getElementById("defectCircle");
+      dc.setAttribute("stroke", d.color);
+
+      if (d.alert) {
+        hb.style.display = "block";
+        hb.innerText = d.alert;
+        hb.style.background = d.color === "var(--critical-color)" ? "rgba(239, 68, 68, 0.85)" : "rgba(234, 179, 8, 0.85)";
+      } else {
+        hb.style.display = "none";
+      }
+    }
+
+    setInterval(() => {
+      frame += 1;
+      document.getElementById("hudFrame").innerText = "FRAME: #" + String(frame).padStart(5, '0');
+      document.getElementById("plantTime").innerText = new Date().toISOString().replace('T', ' ').substring(0, 19);
+    }, 1000);
+  </script>
+</body>
+</html>

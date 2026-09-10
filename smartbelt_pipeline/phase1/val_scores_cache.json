@@ -1,0 +1,290 @@
+[
+  {
+    "filename": "frame_0012.jpg",
+    "anomaly_score": 0.4852272868156433,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0018.jpg",
+    "anomaly_score": 0.5137482285499573,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0021.jpg",
+    "anomaly_score": 0.47554945945739746,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0026.jpg",
+    "anomaly_score": 0.4387338161468506,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0032.jpg",
+    "anomaly_score": 0.45728862285614014,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0059.jpg",
+    "anomaly_score": 0.5054090619087219,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0060.jpg",
+    "anomaly_score": 0.4666931927204132,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0075.jpg",
+    "anomaly_score": 0.49401384592056274,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0076.jpg",
+    "anomaly_score": 0.45360276103019714,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0093.jpg",
+    "anomaly_score": 0.44650739431381226,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0097.jpg",
+    "anomaly_score": 0.5315557718276978,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0098.jpg",
+    "anomaly_score": 0.5130928754806519,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0117.jpg",
+    "anomaly_score": 0.43073877692222595,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0118.jpg",
+    "anomaly_score": 0.6233989000320435,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0138.jpg",
+    "anomaly_score": 0.5489552021026611,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0142.jpg",
+    "anomaly_score": 0.5308210253715515,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0148.jpg",
+    "anomaly_score": 0.5279793739318848,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0159.jpg",
+    "anomaly_score": 0.46461185812950134,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0161.jpg",
+    "anomaly_score": 0.47927621006965637,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0163.jpg",
+    "anomaly_score": 0.4400016963481903,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0170.jpg",
+    "anomaly_score": 0.41093936562538147,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0181.jpg",
+    "anomaly_score": 0.46190914511680603,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0187.jpg",
+    "anomaly_score": 0.5452243685722351,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0198.jpg",
+    "anomaly_score": 0.45729774236679077,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0207.jpg",
+    "anomaly_score": 0.5270648002624512,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0213.jpg",
+    "anomaly_score": 0.5571135878562927,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0214.jpg",
+    "anomaly_score": 0.5781545042991638,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0219.jpg",
+    "anomaly_score": 0.588445782661438,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0221.jpg",
+    "anomaly_score": 0.4812033474445343,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0222.jpg",
+    "anomaly_score": 0.46135976910591125,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0227.jpg",
+    "anomaly_score": 0.5052498579025269,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0237.jpg",
+    "anomaly_score": 0.47668179869651794,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0247.jpg",
+    "anomaly_score": 0.7452969551086426,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 1,
+    "pred_oracle_threshold": 1
+  },
+  {
+    "filename": "frame_0254.jpg",
+    "anomaly_score": 0.4840693771839142,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0277.jpg",
+    "anomaly_score": 0.5207555890083313,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  },
+  {
+    "filename": "frame_0287.jpg",
+    "anomaly_score": 0.49996745586395264,
+    "ground_truth_label": 0,
+    "subset_tag": "val_good",
+    "pred_validation_threshold": 0,
+    "pred_oracle_threshold": 0
+  }
+]

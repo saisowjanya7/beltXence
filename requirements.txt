@@ -1,0 +1,10 @@
+# SmartBelt v2 — Hardware & Inference Requirements
+torch>=2.0.0
+torchvision>=0.15.0
+anomalib>=1.0.0
+opencv-python>=4.8.0
+numpy>=1.24.0
+pandas>=2.0.0
+pyserial>=3.5
+streamlit>=1.30.0
+plotly>=5.18.0

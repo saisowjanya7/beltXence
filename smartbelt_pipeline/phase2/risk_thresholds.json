@@ -1,0 +1,62 @@
+{
+  "module": "SmartBelt Joint Anomaly Detection",
+  "version": "1.0",
+  "threshold_1": 0.6271,
+  "threshold_2": 0.68887,
+  "units": "PatchCore Euclidean Memory Distance",
+  "definitions": {
+    "NORMAL": {
+      "range": "< 0.6271",
+      "description": "Nominal joint condition within 95.4% normal operational tolerance",
+      "action": "Belt continues nominal operation; routine telemetry logging"
+    },
+    "WARNING": {
+      "range": "[0.6271, 0.68887)",
+      "description": "Elevated anomalous variance; border structural deviation detected",
+      "action": "Yellow console alert; flag joint for technician inspection at shift change; initiate high-rate monitoring"
+    },
+    "CRITICAL": {
+      "range": ">= 0.68887",
+      "description": "Severe structural anomaly beyond 99.73% statistical process limit; imminent joint rupture",
+      "action": "Red emergency alert; audible buzzer activation; automated conveyor deceleration / trip signal"
+    }
+  },
+  "score_statistics": {
+    "validation_good": {
+      "count": 36,
+      "mean": 0.5035538557502959,
+      "std": 0.06177219074835349,
+      "min": 0.41093936562538147,
+      "max": 0.7452969551086426
+    },
+    "test_good": {
+      "count": 37,
+      "mean": 0.5208877252565848,
+      "std": 0.05306380820374112,
+      "min": 0.43544256687164307,
+      "max": 0.6864346861839294
+    },
+    "test_real_damage": {
+      "count": 40,
+      "mean": 0.7422868683934212,
+      "std": 0.02141179426234985,
+      "min": 0.6885563731193542,
+      "max": 0.7986733913421631
+    },
+    "test_synthetic_damage": {
+      "count": 30,
+      "mean": 0.8169572750727335,
+      "std": 0.06388470914774166,
+      "min": 0.6630590558052063,
+      "max": 0.9123045206069946
+    }
+  },
+  "test_evaluation_summary": {
+    "total_test_images": 107,
+    "normal_accuracy": "94.6%",
+    "damage_detection_rate": "100.0%",
+    "real_damage_critical_rate": "97.5%",
+    "real_damage_warning_rate": "2.5%",
+    "real_damage_missed_rate": "0.0%"
+  }
+}

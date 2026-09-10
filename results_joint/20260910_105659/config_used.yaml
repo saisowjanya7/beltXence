@@ -1,0 +1,43 @@
+# SmartBelt Joint PatchCore - Evaluation Config
+# Generated: 20260910_105659
+
+run:
+  timestamp:     "20260910_105659"
+  mode:          "evaluate_existing_checkpoint"
+  random_seed:   42
+
+model:
+  framework:     "anomalib"
+  algorithm:     "PatchCore"
+  backbone:      "wide_resnet50_2"
+  layers:        ["layer2", "layer3"]
+  pretrained:    true
+  input_size:    256
+  coreset_ratio: 0.1   # tunable: try 0.05-0.25
+  num_neighbors: 9
+  distance:      "euclidean"
+  device:        "cpu"
+
+checkpoint:
+  path:  "results\Patchcore\conveyor_joint\v0\weights\lightning\model.ckpt"
+  size_mb: 237.5
+  trained_on: 219 normal joint images
+
+preprocessing:
+  resize:        [256, 256]
+  normalize_mean: [0.485, 0.456, 0.406]
+  normalize_std:  [0.229, 0.224, 0.225]
+
+dataset:
+  root:          "dataset/patchcore/"
+  train_good:    219
+  test_good:     37
+  test_real_damage: 40
+  test_synthetic_damage: 30
+  val_good:      36   # threshold calibration (if available)
+  val_bad:       0
+
+evaluation:
+  threshold_method:  "F1-maximizing"
+  auroc:             image-level
+  csv_output:        "scores.csv"

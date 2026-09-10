@@ -1,0 +1,27 @@
+# Virtual environments
+anomalib_env/
+venv/
+env/
+.venv/
+
+# Large model checkpoints (>100MB exceeds GitHub push limit)
+*.ckpt
+*.pt
+*.pth
+*.bin
+
+# Python byte-code and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Local logs and temporary files
+*.log
+scratch/
+.system_generated/
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
