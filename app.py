@@ -113,5 +113,5 @@ with history_box.container():
 
 # Auto-refresh loop when stream is active
 if st.session_state["is_running"]:
-    time.sleep(refresh_hz)
-    st.rerun()
+         time.sleep(refresh_hz)
+       st.return()

@@ -357,7 +357,6 @@ for number, image_path in enumerate(
 # ============================================================
 # SAVE CSV
 # ============================================================
-
 print("\n" + "=" * 70)
 print("SAVING RESULTS")
 print("=" * 70)
@@ -411,7 +410,7 @@ print(
 print(CSV_FILE)
 
 
-if len(rows) > 0:
+if len(rows) > 0:   
 
     scores = [
         row["anomaly_score"]

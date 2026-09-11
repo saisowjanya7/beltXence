@@ -71,7 +71,7 @@ def create_risk_gauge_figure(fused_score: float) -> go.Figure:
         gauge={
             'axis': {'range': [0.0, 1.0], 'tickwidth': 1, 'tickcolor': "#888888"},
             'bar': {'color': "#E0E0E0"},
-            'bgcolor': "transparent",
+            'bgcolor': "rgba(0,0,0,0)",
             'borderwidth': 1,
             'bordercolor': "#444444",
             'steps': [
@@ -87,7 +87,7 @@ def create_risk_gauge_figure(fused_score: float) -> go.Figure:
         }
     ))
     fig.update_layout(
-        paper_bgcolor="transparent",
+        paper_bgcolor="white",
         font={'color': "#FFFFFF"},
         height=200,
         margin=dict(l=20, r=20, t=30, b=10),
