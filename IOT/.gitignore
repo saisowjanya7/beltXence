@@ -1,0 +1,22 @@
+# OS generated files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Build artifacts & caches
+*.hex
+*.bin
+*.elf
+*.o
+*.d
+build/
+.pio/
+.vscode/
+.idea/
+
+# Temporary files & logs
+*.log
+scratch/
+
+# Exclude Web Dashboard UI
+web_dashboard/
